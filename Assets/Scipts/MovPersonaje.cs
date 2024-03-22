@@ -5,8 +5,9 @@ using UnityEngine;
 
 public class MovPersonaje : MonoBehaviour
 {
+    public GameObject respawn;
     public float speed = 1f;
-    public float JumpMultiplier = 4f;
+    public float jumpMultiplier = 4f;
 
     bool AbleToJump = false;
 
@@ -14,17 +15,24 @@ public class MovPersonaje : MonoBehaviour
 
     SpriteRenderer sp2D;
 
+    Animator animationController;
+
 
     // Start is called before the first frame update
     void Start()
     {
         rb2D = this.GetComponent<Rigidbody2D>();
         sp2D = this.GetComponent<SpriteRenderer>();
+        animationController = this.GetComponent<Animator>();
+
+        //La posicion del personaje se ajusta a la posición del GAME OBJETS Respawn
+        transform.position = respawn.transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
+
         //MOVIMIENTO
         float mov = Input.GetAxis("Horizontal") * speed * Time.deltaTime;
         //transform.position = new Vector3 (transform.position.x + mov, transform.position.y, transform.position.z);
@@ -32,21 +40,29 @@ public class MovPersonaje : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.LeftShift)){
             speed = 3f;
+            jumpMultiplier = 8f;
         } else if (Input.GetKeyUp(KeyCode.LeftShift)){
             speed = 1f;
+            jumpMultiplier = 4f;
         }
 
+        //Flip presonaje y control animacion Walking
         if (Input.GetKeyDown(KeyCode.A)){
             sp2D.flipX = true;
+            animationController.SetBool("activateWalking", true);
         }
         if (Input.GetKeyDown(KeyCode.D)){
             sp2D.flipX = false;
+            animationController.SetBool("activateWalking", true);
+        }
+
+        if (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D))
+        {
+            animationController.SetBool("activateWalking", false);
         }
 
 
         //SALTO   
-
-
         //rayo para comprobar si el personaje toca el suelo 
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 0.5f);
         
@@ -65,10 +81,13 @@ public class MovPersonaje : MonoBehaviour
 
         //salto si puedo saltar es true y pulso la tecla espacio
         if (Input.GetKeyDown(KeyCode.Space) && AbleToJump==true){
-            rb2D.AddForce(new Vector2(0,JumpMultiplier), ForceMode2D.Impulse );
+            rb2D.AddForce(new Vector2(0, jumpMultiplier), ForceMode2D.Impulse );
         }
 
+    }
 
-
+    public void GoToRespawn()
+    {
+        transform.position = respawn.transform.position;
     }
 }
