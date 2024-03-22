@@ -9,6 +9,8 @@ public class MovPersonaje : MonoBehaviour
     public float speed = 1f;
     public float jumpMultiplier = 4f;
 
+    public GameObject fireBall;
+
     bool AbleToJump = false;
 
     Rigidbody2D rb2D;
@@ -82,6 +84,11 @@ public class MovPersonaje : MonoBehaviour
         //salto si puedo saltar es true y pulso la tecla espacio
         if (Input.GetKeyDown(KeyCode.Space) && AbleToJump==true){
             rb2D.AddForce(new Vector2(0, jumpMultiplier), ForceMode2D.Impulse );
+        }
+
+        if(Input.GetMouseButtonDown(0))
+        {
+            Instantiate(fireBall, transform.position, Quaternion.identity);
         }
 
     }
