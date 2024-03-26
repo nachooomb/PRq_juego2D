@@ -7,11 +7,14 @@ public class MovPersonaje : MonoBehaviour
 {
     public GameObject respawn;
     public float speed = 1f;
+
+    public float speedMultiplier = 4f;
     public float jumpMultiplier = 4f;
 
     public GameObject fireBall;
 
-    bool AbleToJump = false;
+    public bool faceRigth = true;
+    bool ableToJump = false;
 
     Rigidbody2D rb2D;
 
@@ -41,7 +44,7 @@ public class MovPersonaje : MonoBehaviour
         transform.Translate(mov, 0, 0);
 
         if (Input.GetKeyDown(KeyCode.LeftShift)){
-            speed = 3f;
+            speed = speedMultiplier;
             jumpMultiplier = 8f;
         } else if (Input.GetKeyUp(KeyCode.LeftShift)){
             speed = 1f;
@@ -49,13 +52,15 @@ public class MovPersonaje : MonoBehaviour
         }
 
         //Flip presonaje y control animacion Walking
-        if (Input.GetKeyDown(KeyCode.A)){
+        if (Input.GetKey(KeyCode.A) && mov < 0){
             sp2D.flipX = true;
             animationController.SetBool("activateWalking", true);
+            faceRigth = false;
         }
-        if (Input.GetKeyDown(KeyCode.D)){
+        if (Input.GetKey(KeyCode.D) && mov >= 0){
             sp2D.flipX = false;
             animationController.SetBool("activateWalking", true);
+            faceRigth = true;
         }
 
         if (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D))
@@ -73,16 +78,16 @@ public class MovPersonaje : MonoBehaviour
 
         if (hit) {
             if (hit.collider.name == "Grid"){
-                AbleToJump = true;
+                ableToJump = true;
             } else {
-                AbleToJump = false;
+                ableToJump = false;
             }
         } else {
-            AbleToJump = false;
+            ableToJump = false;
         }
 
         //salto si puedo saltar es true y pulso la tecla espacio
-        if (Input.GetKeyDown(KeyCode.Space) && AbleToJump==true){
+        if (Input.GetKeyDown(KeyCode.Space) && ableToJump==true){
             rb2D.AddForce(new Vector2(0, jumpMultiplier), ForceMode2D.Impulse );
         }
 
