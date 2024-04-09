@@ -23,6 +23,12 @@ public class MovPersonaje : MonoBehaviour
     Animator animationController;
 
 
+    public Vector3 screenPosition;
+    public Vector3 worldPosition;
+
+    Vector3 Click;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -57,7 +63,7 @@ public class MovPersonaje : MonoBehaviour
             animationController.SetBool("activateWalking", true);
             faceRigth = false;
         }
-        if (Input.GetKey(KeyCode.D) && mov >= 0){
+        else if (Input.GetKey(KeyCode.D) && mov >= 0){
             sp2D.flipX = false;
             animationController.SetBool("activateWalking", true);
             faceRigth = true;
@@ -91,10 +97,30 @@ public class MovPersonaje : MonoBehaviour
             rb2D.AddForce(new Vector2(0, jumpMultiplier), ForceMode2D.Impulse );
         }
 
+        //disparar bolas de fuego
         if(Input.GetMouseButtonDown(0))
         {
             Instantiate(fireBall, transform.position, Quaternion.identity);
         }
+
+        // screenPosition = Input.mousePosition;
+        // screenPosition.z = Camera.main.nearClipPlane + 10;
+
+        // if(Input.GetMouseButtonDown(1)){
+
+        //     Click = Camera.main.ScreenToWorldPoint(screenPosition);
+        //     //Click.z = Camera.main.nearClipPlane + 10;
+
+        //     //fireBall=Instantiate(fireBall.gameObject,transform.position , Quaternion.identity);
+        //     fireBall=Instantiate(fireBall.gameObject, Click, Quaternion.identity);
+        //     //fireBall.GetComponent<MovCubo>().Clon= true;
+        //     fireBall.name = "fire clon";
+        //     fireBall.transform.localScale = new Vector3(1f, 1f, 0);
+        //     fireBall.transform.position = Vector3.MoveTowards(fireBall.transform.position, Click, 1f);
+        //     Debug.Log( worldPosition);
+
+
+        // }
 
     }
 

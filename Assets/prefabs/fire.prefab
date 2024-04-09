@@ -115,7 +115,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae55491610c5eb941a3ba5cfa19d633f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BulletSpeed: 2
+  bulletSpeed: 2
+  screenPosition: {x: 0, y: 0, z: 0}
+  worldPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &5014063666879071312
 MonoBehaviour:
   m_ObjectHideFlags: 0

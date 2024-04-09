@@ -11,6 +11,9 @@ public class GhostScript : MonoBehaviour
 
     public float GhostSpeedDelta= 3f;
 
+    SpriteRenderer sp2D;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,6 +21,7 @@ public class GhostScript : MonoBehaviour
 
         InitialPostion = transform.position;
 
+        sp2D = this.GetComponent<SpriteRenderer>();
 
     }
 
@@ -35,6 +39,13 @@ public class GhostScript : MonoBehaviour
         }else {
             transform.position = Vector3.MoveTowards(transform.position, InitialPostion, GhostSpeed*1.5f);
         };
+
+        if (personaje.transform.position.x <= transform.position.x){
+            sp2D.flipX = false;
+        } else {
+            sp2D.flipX = true;
+        }
+        
     }
 
         public void GoToRespawn()
