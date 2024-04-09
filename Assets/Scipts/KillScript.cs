@@ -20,6 +20,7 @@ public class KillScript : MonoBehaviour
 
         if(col.gameObject.tag == "Enemy"){
             col.gameObject.GetComponent<GhostScript>().GoToRespawn();
+            
         }
 
     }

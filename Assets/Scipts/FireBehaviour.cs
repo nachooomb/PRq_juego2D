@@ -6,72 +6,50 @@ public class FireBehaviour : MonoBehaviour
 {
     public float bulletSpeed = 2.0f;
 
+    public float destroyDelay = 2.5f;
     bool faceRigthFire;
-
-    bool Clon = false;
-
-    public Vector3 screenPosition;
-    public Vector3 worldPosition;
-
-    Vector3 CharPosition;
-
-    Vector3 Click;
-
     GameObject personaje;
 
-    Vector3 Rotation;
+    private Rigidbody2D fireballRB;
+
+    // inicializa rigidbody2D para poder utilizarlo cuando la funcion shootFireball se ejecuta 
+    private void Awake()
+    {
+        fireballRB = GetComponent<Rigidbody2D>();  
+    }
 
     // Start is called before the first frame update
     void Start()
     {
         personaje = GameObject.Find("Personaje");
         faceRigthFire = personaje.GetComponent<MovPersonaje>().faceRigth;
-        CharPosition = personaje.transform.position;
-
-        screenPosition = Input.mousePosition;
-        screenPosition.z = Camera.main.nearClipPlane + 10;
-        
-
-        Click = Camera.main.ScreenToWorldPoint(screenPosition);
-            Clon= true;
-            this.name = "Fire clon";
-            Debug.Log( Click);
-
-        float rotZ = Mathf.Atan2(Click.y, Click.x)*Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0, 0, rotZ);
 
     }
 
     // Update is called once per frame
     void Update()
     {
-
-        // if (faceRigthFire == true){
-        //     transform.Translate(Time.deltaTime*bulletSpeed , 0, 0);
-        // } else {
-        //     transform.Translate(Time.deltaTime*bulletSpeed*-1 , 0, 0);
-        // }
-
-
-
-
-  
-
-            //MiCubo=Instantiate(this.gameObject, Click, Quaternion.identity);
-
-
-            transform.Translate(bulletSpeed*Time.deltaTime*-1, 0, 0 );
-
-            if(transform.position.z >=50.0f){
-                Destroy(this.gameObject);
-            }
-
-        
+        //fire ball shoot
+        //Disparo el la direción en la que mira
+            // if (faceRigthFire == true){
+            //     transform.Translate(Time.deltaTime*bulletSpeed , 0, 0);
+            // } else {
+            //     transform.Translate(Time.deltaTime*bulletSpeed*-1 , 0, 0);
+            // }
     }
 
+    //disparo en la dirección del puntero
+    public void shootFireball (Vector2 direction)
+    {
+        fireballRB.velocity = direction * bulletSpeed;
+        Destroy(gameObject, destroyDelay);
+    }
+        
     void OnTriggerEnter2D(Collider2D col){
 
         Debug.Log(col.gameObject.name);
-
+        if (col.gameObject.name == "enemigo_fantasma"){
+            Destroy(gameObject);
+        }
     }
 }

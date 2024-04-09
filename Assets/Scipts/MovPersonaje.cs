@@ -11,7 +11,12 @@ public class MovPersonaje : MonoBehaviour
     public float speedMultiplier = 4f;
     public float jumpMultiplier = 4f;
 
+    //fire ball shoot
     public GameObject fireBall;
+    private Camera MainCamera; 
+    //referencia al prefab del proyertil
+    [SerializeField]private FireBehaviour fireballScript;
+
 
     public bool faceRigth = true;
     bool ableToJump = false;
@@ -23,12 +28,6 @@ public class MovPersonaje : MonoBehaviour
     Animator animationController;
 
 
-    public Vector3 screenPosition;
-    public Vector3 worldPosition;
-
-    Vector3 Click;
-
-
     // Start is called before the first frame update
     void Start()
     {
@@ -38,6 +37,9 @@ public class MovPersonaje : MonoBehaviour
 
         //La posicion del personaje se ajusta a la posición del GAME OBJETS Respawn
         transform.position = respawn.transform.position;
+
+        //fire ball shoot
+        MainCamera = Camera.main;
     }
 
     // Update is called once per frame
@@ -97,30 +99,23 @@ public class MovPersonaje : MonoBehaviour
             rb2D.AddForce(new Vector2(0, jumpMultiplier), ForceMode2D.Impulse );
         }
 
-        //disparar bolas de fuego
-        if(Input.GetMouseButtonDown(0))
-        {
+        //fire ball shoot
+        //disparar bolas de fuego rectas en la direción en la que mira el personaje
+        if(Input.GetMouseButtonDown(0)){
             Instantiate(fireBall, transform.position, Quaternion.identity);
         }
 
-        // screenPosition = Input.mousePosition;
-        // screenPosition.z = Camera.main.nearClipPlane + 10;
+        //disparar bolas de fuego desde el personaje hacia el cursor
+        
+        // creamos un vector2 para guardar la posición del ratón en la pantalla
+        Vector2 mouseWorldPosition = MainCamera.ScreenToWorldPoint(Input.mousePosition);
+        // creamos un vector2 para calcular la direción del proyectil. Restando 2 el vector anterior (la posición del ratón) y la posición de nuestro personaje
+        Vector2 aimDirection = mouseWorldPosition - (Vector2)transform.position;
 
-        // if(Input.GetMouseButtonDown(1)){
-
-        //     Click = Camera.main.ScreenToWorldPoint(screenPosition);
-        //     //Click.z = Camera.main.nearClipPlane + 10;
-
-        //     //fireBall=Instantiate(fireBall.gameObject,transform.position , Quaternion.identity);
-        //     fireBall=Instantiate(fireBall.gameObject, Click, Quaternion.identity);
-        //     //fireBall.GetComponent<MovCubo>().Clon= true;
-        //     fireBall.name = "fire clon";
-        //     fireBall.transform.localScale = new Vector3(1f, 1f, 0);
-        //     fireBall.transform.position = Vector3.MoveTowards(fireBall.transform.position, Click, 1f);
-        //     Debug.Log( worldPosition);
-
-
-        // }
+        if(Input.GetMouseButtonDown(1)){
+            FireBehaviour projectile = Instantiate(fireballScript, transform.position, Quaternion.identity);
+            projectile.shootFireball(aimDirection);
+        }
 
     }
 
