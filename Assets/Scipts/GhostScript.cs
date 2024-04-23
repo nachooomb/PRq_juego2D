@@ -11,7 +11,13 @@ public class GhostScript : MonoBehaviour
 
     public float GhostSpeedDelta= 3f;
 
+    bool attacking = false;
+    bool soundInicialice = false;
+
     SpriteRenderer sp2D;
+
+    AudioSource _audioSourceGhost;
+    public AudioClip sfx_ghost;
 
 
     // Start is called before the first frame update
@@ -22,6 +28,10 @@ public class GhostScript : MonoBehaviour
         InitialPostion = transform.position;
 
         sp2D = this.GetComponent<SpriteRenderer>();
+
+        _audioSourceGhost = GetComponent<AudioSource>();
+        _audioSourceGhost.clip = sfx_ghost;
+
 
     }
 
@@ -42,9 +52,17 @@ public class GhostScript : MonoBehaviour
 
         if (personaje.transform.position.x <= transform.position.x){
             sp2D.flipX = false;
+            _audioSourceGhost.pitch = 2f;
         } else {
             sp2D.flipX = true;
+            _audioSourceGhost.pitch = -2f;
         }
+
+        if (attacking && soundInicialice == false){      
+            _audioSourceGhost.Play();
+            soundInicialice = true; 
+        }
+
         
     }
 

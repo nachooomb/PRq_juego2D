@@ -9,7 +9,8 @@ public class FireBehaviour : MonoBehaviour
     public float destroyDelay = 2.5f;
     bool faceRigthFire;
     GameObject personaje;
-
+    private Camera mainCamera;
+    float rotationZ;
     private Rigidbody2D fireballRB;
 
     // inicializa rigidbody2D para poder utilizarlo cuando la funcion shootFireball se ejecuta 
@@ -23,7 +24,18 @@ public class FireBehaviour : MonoBehaviour
     {
         personaje = GameObject.Find("Personaje");
         faceRigthFire = personaje.GetComponent<MovPersonaje>().faceRigth;
+        mainCamera = Camera.main;
 
+        //position del ratón en pixels de la pantalla
+        Vector2 mousePos = Input.mousePosition;
+        //de pixel de la pantalla a unidades de unity
+        Vector3 point = mainCamera.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, mainCamera.nearClipPlane));
+        //direccion es el click menos la posicion del personaje (es el punto medio)
+        Vector3 direction = point - personaje.transform.position;
+        //la rotacion es el arcotangente traducida a grados
+        rotationZ = Mathf.Atan2(direction.y, direction.x)*Mathf.Rad2Deg;
+        //aplico la rotacion al objeto... al moverse, lo hará en esa direccion
+        transform.rotation = Quaternion.Euler(0, 0, rotationZ);
     }
 
     // Update is called once per frame
@@ -36,6 +48,10 @@ public class FireBehaviour : MonoBehaviour
             // } else {
             //     transform.Translate(Time.deltaTime*bulletSpeed*-1 , 0, 0);
             // }
+
+        //se mueve el objeto
+        transform.Translate(bulletSpeed*Time.deltaTime, 0, 0);
+        Destroy(gameObject, destroyDelay);
     }
 
     //disparo en la dirección del puntero

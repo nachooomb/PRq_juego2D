@@ -22,6 +22,7 @@ public class DeadScript : MonoBehaviour
         if(col.gameObject.name == "Personaje"){
             GameManager.vidas -= 1;
             col.gameObject.GetComponent<MovPersonaje>().GoToRespawn();
+            AudioManager.Instance._sfx_dead();
         }
 
     }

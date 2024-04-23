@@ -13,8 +13,6 @@ public class GameManager : MonoBehaviour
     public static int puntos = 0;
 
     void Awake(){
-
-
         //Singleton
         if (Instance != null && Instance!= this){
             Destroy(this.gameObject);
