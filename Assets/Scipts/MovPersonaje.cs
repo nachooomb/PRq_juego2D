@@ -18,6 +18,7 @@ public class MovPersonaje : MonoBehaviour
     [SerializeField]private FireBehaviour fireballScript;
 
 
+    
     public bool faceRigth = true;
     bool ableToJump = false;
 
@@ -35,7 +36,7 @@ public class MovPersonaje : MonoBehaviour
         sp2D = this.GetComponent<SpriteRenderer>();
         animationController = this.GetComponent<Animator>();
 
-        //La posicion del personaje se ajusta a la posición del GAME OBJETS Respawn
+        //La posicion del personaje se ajusta a la posición del GAME OBJET Respawn
         transform.position = respawn.transform.position;
 
         //fire ball shoot
@@ -124,10 +125,15 @@ public class MovPersonaje : MonoBehaviour
             AudioManager.Instance._sfx_PlayOnce(AudioManager.Instance.sfx_fuego);
         }
 
+        if (GameManager.vidas <= 0 ) {
+            GameManager.dead = true;
+
+        }
     }
 
     public void GoToRespawn()
     {
+        GameManager.vidas--;
         transform.position = respawn.transform.position;
     }
 }

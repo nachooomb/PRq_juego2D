@@ -9,7 +9,9 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance; 
     public GameObject panelSettings;
 
-    public static int vidas = 3;
+    public static bool dead = false;
+
+    public static int vidas = 5;
     public static int puntos = 0;
 
     void Awake(){
@@ -32,6 +34,9 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape)){
             ToggleSettings();
+        }
+        if (dead == true) {
+            Gameover();
         }
     }
 
@@ -59,6 +64,8 @@ public class GameManager : MonoBehaviour
 
     public void Gameover(){
         SceneManager.LoadScene("GameOver");
+        dead = false;
+        vidas = 5;
     }
 
     //sfx buttons
