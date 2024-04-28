@@ -138,8 +138,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletSpeed: 2
-  screenPosition: {x: 0, y: 0, z: 0}
-  worldPosition: {x: 0, y: 0, z: 0}
+  destroyDelay: 2.5
 --- !u!114 &5014063666879071312
 MonoBehaviour:
   m_ObjectHideFlags: 0

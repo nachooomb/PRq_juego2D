@@ -108,6 +108,7 @@ public class MovPersonaje : MonoBehaviour
         //disparar bolas de fuego rectas en la direción en la que mira el personaje
         if(Input.GetMouseButtonDown(0)){
             Instantiate(fireBall, transform.position, Quaternion.identity);
+            AudioManager.Instance._sfx_PlayOnce(AudioManager.Instance.sfx_fuego);
         }
 
         //disparar bolas de fuego desde el personaje hacia el cursor
@@ -120,6 +121,7 @@ public class MovPersonaje : MonoBehaviour
         if(Input.GetMouseButtonDown(1)){
             FireBehaviour projectile = Instantiate(fireballScript, transform.position, Quaternion.identity);
             projectile.shootFireball(aimDirection);
+            AudioManager.Instance._sfx_PlayOnce(AudioManager.Instance.sfx_fuego);
         }
 
     }
