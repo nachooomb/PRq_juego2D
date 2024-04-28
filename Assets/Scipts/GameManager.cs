@@ -60,4 +60,9 @@ public class GameManager : MonoBehaviour
     public void Gameover(){
         SceneManager.LoadScene("GameOver");
     }
+
+    //sfx buttons
+    public void HoverButton() {
+        AudioManager.Instance._sfx_PlayOnce(AudioManager.Instance.sfx_button);
+    }
 }

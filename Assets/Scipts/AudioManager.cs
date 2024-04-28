@@ -14,6 +14,9 @@ public class AudioManager : MonoBehaviour
 
     AudioSource _audioSource;
 
+    public GameObject AudioMixer_1;
+    AudioSource _SourceAudioMixer_1;
+
     void Awake(){
         //Singleton
         if (Instance != null && Instance!= this){
@@ -29,9 +32,13 @@ public class AudioManager : MonoBehaviour
     {
         _audioSource = GetComponent<AudioSource>();
 
-        _audioSource.clip = BandaSonora;
-        _audioSource.Play();
-        _audioSource.volume = 0.1f;
+        
+ 
+        _SourceAudioMixer_1 = AudioMixer_1.GetComponent<AudioSource>();
+        _SourceAudioMixer_1.clip = BandaSonora;
+        _SourceAudioMixer_1.loop = true;
+        _SourceAudioMixer_1.Play();
+        _SourceAudioMixer_1.volume = 0.05f;
     }
 
     // Update is called once per frame
@@ -40,7 +47,8 @@ public class AudioManager : MonoBehaviour
         
     }
 
-    public void _sfx_dead(){
-        _audioSource.PlayOneShot(sfx_dead);
+    //Metodo para hacer sonar clips de audio
+    public void _sfx_PlayOnce(AudioClip sfx_Clip){
+        _audioSource.PlayOneShot(sfx_Clip);
     }
 }

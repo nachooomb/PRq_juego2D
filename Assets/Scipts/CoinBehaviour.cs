@@ -24,6 +24,7 @@ public class CoinBehaviour : MonoBehaviour
 
         if(col.gameObject.name == "Personaje"){
             _animator.SetBool("Destroy Coin", true);
+            AudioManager.Instance._sfx_PlayOnce(AudioManager.Instance.sfx_coin);
 
             Destroy(this.gameObject, 1.0f);
 

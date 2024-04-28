@@ -58,6 +58,11 @@ public class MovPersonaje : MonoBehaviour
             speed = 1f;
             jumpMultiplier = 4f;
         }
+        //comprobar si me he salido de la pantalla por abajo
+        if(transform.position.y <= -7){
+            AudioManager.Instance._sfx_PlayOnce(AudioManager.Instance.sfx_dead);
+            GoToRespawn();
+        }
 
         //Flip presonaje y control animacion Walking
         if (Input.GetKey(KeyCode.A) && mov < 0){

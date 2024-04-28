@@ -138,9 +138,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04310c24e629d3a4db26e38538fca7f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AttackRange: 3.5
-  GhostSpeedDelta: 3
-  sfx_ghost: {fileID: 8300000, guid: 9637bedc1314aa0498b7a5c66bec37b5, type: 3}
+  AttackRange: 3
+  GhostSpeedDelta: 2.5
 --- !u!114 &8750848298158821451
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -153,6 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f2320bf69b804a4397a855586617c4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Fantasma: {fileID: 0}
 --- !u!82 &6020821919788370574
 AudioSource:
   m_ObjectHideFlags: 0
@@ -165,18 +165,18 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 9637bedc1314aa0498b7a5c66bec37b5, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
-  m_Pitch: -1.38
+  m_Volume: 0.543
+  m_Pitch: 1.59
   Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 190
+  Priority: 141
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 3
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 2
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -209,7 +209,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 0.964
       inSlope: 0
       outSlope: 0
       tangentMode: 0

@@ -9,15 +9,12 @@ public class GhostScript : MonoBehaviour
     GameObject personaje;
     public float AttackRange = 3.5f;
 
-    public float GhostSpeedDelta= 3f;
-
-    bool attacking = false;
-    bool soundInicialice = false;
+    public float GhostSpeedDelta= 2.5f;
 
     SpriteRenderer sp2D;
 
     AudioSource _audioSourceGhost;
-    public AudioClip sfx_ghost;
+ 
 
 
     // Start is called before the first frame update
@@ -30,7 +27,6 @@ public class GhostScript : MonoBehaviour
         sp2D = this.GetComponent<SpriteRenderer>();
 
         _audioSourceGhost = GetComponent<AudioSource>();
-        _audioSourceGhost.clip = sfx_ghost;
 
 
     }
@@ -46,23 +42,24 @@ public class GhostScript : MonoBehaviour
         if (RealRange <= AttackRange){
             transform.position = Vector3.MoveTowards(transform.position, personaje.transform.position, GhostSpeed);
 
+            if(_audioSourceGhost.isPlaying == false){
+                _audioSourceGhost.Play();
+            }
         }else {
             transform.position = Vector3.MoveTowards(transform.position, InitialPostion, GhostSpeed*1.5f);
+        
+            if((transform.position == InitialPostion) && (_audioSourceGhost.isPlaying == true)){
+                _audioSourceGhost.Stop();
+            }
         };
 
         if (personaje.transform.position.x <= transform.position.x){
             sp2D.flipX = false;
-            _audioSourceGhost.pitch = 2f;
+            //_audioSourceGhost.pitch = 2f;
         } else {
             sp2D.flipX = true;
-            _audioSourceGhost.pitch = -2f;
+            //_audioSourceGhost.pitch = -2f;
         }
-
-        if (attacking && soundInicialice == false){      
-            _audioSourceGhost.Play();
-            soundInicialice = true; 
-        }
-
         
     }
 

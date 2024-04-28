@@ -32,6 +32,10 @@ public class MainMenu : MonoBehaviour
         Application.Quit();
     }
 
+    public void HoverButton() {
+        AudioManager.Instance._sfx_PlayOnce(AudioManager.Instance.sfx_button);
+    }
+
 
 
 }

@@ -3,7 +3,8 @@ guid: 4f2320bf69b804a4397a855586617c4e
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - Fantasma: {fileID: 8750848298158821489, guid: 21e3d0334edd4d54aadd3c5792f1acd0, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

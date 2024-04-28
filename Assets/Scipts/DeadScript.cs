@@ -5,10 +5,15 @@ using UnityEngine;
 
 public class DeadScript : MonoBehaviour
 {
+
+    public GameObject Fantasma;
+
+    //AudioSource _audioSourceGhost;
     // Start is called before the first frame update
+
     void Start()
     {
-        
+        //_audioSourceGhost = Fantasma.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -22,7 +27,11 @@ public class DeadScript : MonoBehaviour
         if(col.gameObject.name == "Personaje"){
             GameManager.vidas -= 1;
             col.gameObject.GetComponent<MovPersonaje>().GoToRespawn();
-            AudioManager.Instance._sfx_dead();
+            AudioManager.Instance._sfx_PlayOnce(AudioManager.Instance.sfx_dead);
+
+            // if(_audioSourceGhost.isPlaying == true ){
+            //     _audioSourceGhost.Stop();
+            // }
         }
 
     }
